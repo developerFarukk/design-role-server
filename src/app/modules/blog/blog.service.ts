@@ -3,22 +3,30 @@ import { Blogs } from "./blog.model";
 
 // Create Blog
 const createBlogIntoDB = async (payload: Tblog) => {
-    const result = await  Blogs.create(payload);
+    const result = await Blogs.create(payload);
     return result;
 };
 
 
 // All Blog Data Get
 const getAllBlogFromDB = async () => {
-    
+
     const result = await Blogs.find().populate('author');
-    
+
+    return result;
+};
+
+// Single Blog data get
+const getSingleBlogFromDB = async (id: string) => {
+    const result =
+        await Blogs.findById(id).populate('author');
     return result;
 };
 
 
 export const blogService = {
     createBlogIntoDB,
-    getAllBlogFromDB
-    
+    getAllBlogFromDB,
+    getSingleBlogFromDB
+
 };

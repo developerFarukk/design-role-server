@@ -6,7 +6,7 @@ import { BlogsControllers } from './blog.controller';
 
 const router = express.Router();
 
-// Creat Blogs Data
+// Creat Blogs Data Route
 router.post(
     '/create-blog',
     validateRequest(
@@ -15,7 +15,13 @@ router.post(
     BlogsControllers.createblogs,
 );
 
-// All Data get of Blog
+// All Data get of Blog Route
 router.get('/', BlogsControllers.getAllBlog);
+
+// Single  Blog data get Route
+router.get(
+    '/:blogId',
+    BlogsControllers.getSingleBlog,
+);
 
 export const BlogsRoutes = router;
