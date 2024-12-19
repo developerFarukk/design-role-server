@@ -23,10 +23,26 @@ const getSingleBlogFromDB = async (id: string) => {
     return result;
 };
 
+// Update Department Data
+const updateBlogIntoDB = async (
+    id: string,
+    payload: Partial<Tblog>,
+) => {
+    const result = await Blogs.findOneAndUpdate(
+        { _id: id },
+        payload,
+        {
+            new: true,
+        },
+    );
+    return result;
+};
+
 
 export const blogService = {
     createBlogIntoDB,
     getAllBlogFromDB,
-    getSingleBlogFromDB
+    getSingleBlogFromDB,
+    updateBlogIntoDB
 
 };

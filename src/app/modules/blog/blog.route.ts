@@ -24,4 +24,13 @@ router.get(
     BlogsControllers.getSingleBlog,
 );
 
+// Update Blog Route
+router.patch(
+    '/:id',
+    validateRequest(
+        BlogValidation.updateBlogValidation,
+    ),
+    BlogsControllers.updateBlog,
+);
+
 export const BlogsRoutes = router;

@@ -1,5 +1,5 @@
 
-import { z } from "zod";
+import { optional, z } from "zod";
 
 
 // Create blog validation
@@ -18,6 +18,16 @@ const createBlogValidation = z.object({
 });
 
 
+// Update blog validation
+const updateBlogValidation = z.object({
+    body: z.object({
+        title: z.string().optional(),
+        content: z.string().optional(),
+    }),
+});
+
+
 export const BlogValidation = {
     createBlogValidation,
+    updateBlogValidation
 };
