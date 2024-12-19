@@ -19,15 +19,15 @@ const createUserNameValidationNameSchema = z.object({
 // Create user validation
 const userValidationSchema = z.object({
     body: z.object({
-        password: z
+        user: z.object({
+            password: z
             .string()
             .min(6, { message: 'Password must be at least 6 characters' })
             .max(20, { message: 'Password must be less than 20 characters' })
             .optional(),
-        user: z.object({
-            name: createUserNameValidationNameSchema,
-            email: z.string().email({ message: 'Invalid email address' }),
-            isDeleted: z.boolean(),
+        name: createUserNameValidationNameSchema,
+        email: z.string().email({ message: 'Invalid email address' }),
+        isDeleted: z.boolean(),
         })
     }),
 

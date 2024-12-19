@@ -1,16 +1,16 @@
 
-import express, { Request, Response } from 'express'
+import cors from 'cors';
+import express, { Application, Request, Response } from 'express'
+import router from './app/routes';
 
-
-const app = express()
+const app: Application = express();
 
 // middleware
 app.use(express.json())
+app.use(cors());
 
-// app.use('/api/user', userRouter)
-// app.use('/api/tour', tourRouter)
-
-// POST: /api/user/create-user
+// application routes
+app.use('/api', router);
 
 app.get('/', (req: Request, res: Response) => {
     res.send({
