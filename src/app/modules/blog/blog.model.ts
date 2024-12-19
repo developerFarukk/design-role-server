@@ -30,20 +30,20 @@ const blogSchema = new Schema<Tblog>(
 );
 
 
-blogSchema.pre('find', function (next) {
-    this.find({ isPublished: { $ne: true } });
-    next();
-});
+// blogSchema.pre('find', function (next) {
+//     this.find({ isPublished: { $ne: true } });
+//     next();
+// });
 
-blogSchema.pre('findOne', function (next) {
-    this.find({ isPublished: { $ne: true } });
-    next();
-});
+// blogSchema.pre('findOne', function (next) {
+//     this.find({ isPublished: { $ne: true } });
+//     next();
+// });
 
-blogSchema.pre('aggregate', function (next) {
-    this.pipeline().unshift({ $match: { isPublished: { $ne: true } } });
-    next();
-});
+// blogSchema.pre('aggregate', function (next) {
+//     this.pipeline().unshift({ $match: { isPublished: { $ne: true } } });
+//     next();
+// });
 
 //creating a custom static method
 blogSchema.statics.isUserExists = async function (id: string) {
@@ -52,7 +52,7 @@ blogSchema.statics.isUserExists = async function (id: string) {
 };
 
 
-export const blogs = model<Tblog>(
-    'blog',
+export const Blogs = model<Tblog>(
+    'Blog',
     blogSchema,
 );
