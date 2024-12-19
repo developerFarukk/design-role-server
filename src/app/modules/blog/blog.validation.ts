@@ -18,6 +18,6 @@ const createBlogValidation = z.object({
 });
 
 
-export const AcademicDepartmentValidation = {
+export const BlogValidation = {
     createBlogValidation,
 };

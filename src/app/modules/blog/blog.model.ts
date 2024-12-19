@@ -5,7 +5,6 @@ import { Tblog } from "./blog.interface";
 import { User } from "../user/user.model";
 
 
-
 const blogSchema = new Schema<Tblog>(
     {
         title: {
@@ -53,7 +52,7 @@ blogSchema.statics.isUserExists = async function (id: string) {
 };
 
 
-export const AcademicDepartment = model<Tblog>(
+export const blogs = model<Tblog>(
     'blog',
     blogSchema,
 );
