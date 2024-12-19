@@ -38,11 +38,23 @@ const updateBlogIntoDB = async (
     return result;
 };
 
+// Delete Blog
+const deleteBlogFromDB = async (id: string) => {
+    const result = await Blogs.findByIdAndUpdate(
+        {_id: id},
+        { isPublished: false },
+        { new: true },
+    );
+    return result;
+};
+
+
 
 export const blogService = {
     createBlogIntoDB,
     getAllBlogFromDB,
     getSingleBlogFromDB,
-    updateBlogIntoDB
+    updateBlogIntoDB,
+    deleteBlogFromDB
 
 };

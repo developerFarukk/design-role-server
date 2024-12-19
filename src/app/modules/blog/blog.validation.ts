@@ -1,5 +1,5 @@
 
-import { optional, z } from "zod";
+import { z } from "zod";
 
 
 // Create blog validation
