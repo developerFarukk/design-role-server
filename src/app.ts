@@ -15,7 +15,7 @@ app.use(express.json())
 app.get('/', (req: Request, res: Response) => {
     res.send({
         status: true,
-        message: 'Server is Rouning Live ⚡',
+        message: 'Blog project Server is Rouning Live ⚡',
     })
 })
 
