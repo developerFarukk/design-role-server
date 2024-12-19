@@ -1,15 +1,10 @@
 
-export type TUserName = {
-    firstName: string;
-    middleName?: string | undefined;
-    lastName: string;
-};
 
 export type TUser = {
-    name: TUserName;
+    name: string;
     email: string;
     password: string;
     role: 'admin' | 'user';
-    // status: 'in-progress' | 'blocked';
+    status: 'in-progress' | 'blocked';
     isDeleted: boolean;
 };

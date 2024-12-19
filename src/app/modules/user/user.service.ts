@@ -12,6 +12,8 @@ import { User } from "./user.model";
 const createUserIntoDB = async ( payload: TUser) => {
 
     const result = await User.create(payload);
+
+    
     return result;
 
     // // create a user object

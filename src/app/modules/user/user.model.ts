@@ -1,28 +1,8 @@
 
 import bcrypt from 'bcrypt';
 import { model, Schema } from "mongoose";
-import { TUser, TUserName } from "./user.interface";
+import { TUser } from "./user.interface";
 import config from '../../config';
-
-// User/student Name Schema
-const userNameSchema = new Schema<TUserName>({
-    firstName: {
-        type: String,
-        required: [true, 'First Name is required'],
-        trim: true,  //  trim =>  Extra space remove
-        maxlength: [20, 'Name can not be more than 20 characters'],
-    },
-    middleName: {
-        type: String,
-        trim: true,
-    },
-    lastName: {
-        type: String,
-        trim: true,
-        required: [true, 'Last Name is required'],
-        maxlength: [20, 'Name can not be more than 20 characters'],
-    },
-});
 
 
 const userSchema = new Schema<TUser>(
@@ -31,15 +11,18 @@ const userSchema = new Schema<TUser>(
         password: {
             type: String,
             required: true,
+            select: false
         },
         name: {
-            type: userNameSchema,
+            type: String,
             required: [true, 'Name is required'],
+            trim: true
         },
         email: {
             type: String,
             required: [true, 'Email is required'],
             unique: true,
+            trim: true,
             validate: {
                 validator: function (value: string) {
                     return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value)
@@ -53,11 +36,11 @@ const userSchema = new Schema<TUser>(
             enum: ['admin', 'user'],
             default: 'user'
         },
-        // status: {
-        //     type: String,
-        //     enum: ['in-progress', 'blocked'],
-        //     default: 'in-progress',
-        // },
+        status: {
+            type: String,
+            enum: ['in-progress', 'blocked'],
+            default: 'in-progress',
+        },
         isDeleted: {
             type: Boolean,
             default: false,
