@@ -16,7 +16,7 @@ import AppError from '../errors/AppError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
-    let statusCode = 500;
+    let statusCode = 401;
     let message = 'Something went to be wrong!';
 
     let error: TErrorSources = [
@@ -71,9 +71,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         message,
         statusCode: statusCode,
         error,
-        // err,
         stack: config.node_env === 'development' ? err?.stack : null,
-        // error: err,
     }) as unknown as void;
 };
 

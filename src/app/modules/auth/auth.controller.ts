@@ -24,10 +24,10 @@ const loginUser = catchAsync(async (req, res) => {
     const result = await AuthService.loginUserWithDB(req.body);
 
     sendResponse(res, {
-        statusCode: httpStatus.ACCEPTED,
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Login successful',
-        data: '',
+        data: result,
     });
 });
 

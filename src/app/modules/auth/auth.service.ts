@@ -1,7 +1,11 @@
 
 
-import { TUser } from "../user/user.interface"
-import { User } from "../user/user.model"
+import config from "../../config";
+import { TUser } from "../user/user.interface";
+import { User } from "../user/user.model";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { createToken } from "./auth.utils";
 
 
 // User Register function
@@ -17,39 +21,43 @@ const loginUserWithDB = async (payload: { email: string; password: string }) => 
 
     // checking if the user is exist
     const user = await User.findOne({ email: payload?.email }).select('+password');
-  
+
     if (!user) {
-      throw new Error('This user is not found !')
+        throw new Error('This user is not found !')
     }
-  
-    // checking if the user is inactive
-    // const userStatus = user?.userStatus
-  
-    // if (userStatus === 'inactive') {
-    //   throw new Error('This user is blocked ! !')
-    // }
-  
+
+    // checking if the user is Blocked
+    const isBlocked = user?.isBlocked
+
+    if (isBlocked) {
+        throw new Error('This user is blocked ! !')
+    }
+
     //checking if the password is correct
-    // const isPasswordMatched = await bcrypt.compare(
-    //   payload?.password,
-    //   user?.password
-    // )
-  
-    // if (!isPasswordMatched) {
-    //   throw new Error('Wrong Password!!! Tell me who are you? 😈')
-    // }
-  
+    const isPasswordMatched = await bcrypt.compare(
+        payload?.password,
+        user?.password
+    )
+
+    if (!isPasswordMatched) {
+        throw new Error('Your Password is Wrong.   Please inpute Corect password')
+    }
+
     //create token and sent to the  client
-    // const jwtPayload = {
-    //   email: user?.email,
-    //   role: user?.role,
-    // }
-  
-    // const token = jwt.sign(jwtPayload, "secret", { expiresIn: '1d' });
-  
-    // return {token, user};
-    return { user};
-  }
+    const jwtPayload = {
+        userId: user.id,
+        role: user.role,
+    };
+
+    const accessToken = createToken(
+        jwtPayload,
+        config.jwt_access_secret as string,
+        config.jwt_access_expires_in as string,
+    );
+
+    return { accessToken };
+    return { user };
+}
 
 export const AuthService = {
     userRegisterDB,
