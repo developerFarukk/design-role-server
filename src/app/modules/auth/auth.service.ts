@@ -6,7 +6,9 @@ import { User } from "../user/user.model"
 
 // User Register function
 const userRegisterDB = async (payload: TUser) => {
-    const result = await User.create(payload)
+    const publicUserData = await User.create(payload);
+    const result = await User.getPublicUserData(publicUserData._id);
+
     return result
 }
 
@@ -14,5 +16,6 @@ const userRegisterDB = async (payload: TUser) => {
 
 export const AuthService = {
     userRegisterDB,
+    
     // login,
 }
