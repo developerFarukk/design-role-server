@@ -10,6 +10,7 @@ const userSchema = new Schema<TUser>(
         name: {
             type: String,
             required: [true, 'Name is required'],
+            maxlength: 20,
             trim: true
         },
         email: {
@@ -32,8 +33,12 @@ const userSchema = new Schema<TUser>(
         },
         role: {
             type: String,
-            enum: ['admin', 'user'],
-            default: 'user'
+            enum: {
+                values: ['user', 'admin'],
+                message: '{VALUE} is not valid, please provide a valid role',
+            },
+            default: 'user',
+            required: true,
         },
         isBlocked: {
             type: Boolean,

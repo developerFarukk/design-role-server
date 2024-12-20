@@ -5,7 +5,7 @@ import { User } from "../user/user.model"
 
 
 // User Register function
-const userRegister = async (payload: TUser) => {
+const userRegisterDB = async (payload: TUser) => {
     const result = await User.create(payload)
     return result
 }
@@ -13,6 +13,6 @@ const userRegister = async (payload: TUser) => {
 
 
 export const AuthService = {
-    userRegister,
+    userRegisterDB,
     // login,
 }
