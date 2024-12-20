@@ -7,12 +7,6 @@ import config from '../../config';
 
 const userSchema = new Schema<TUser>(
     {
-
-        password: {
-            type: String,
-            required: true,
-            select: false
-        },
         name: {
             type: String,
             required: [true, 'Name is required'],
@@ -31,17 +25,17 @@ const userSchema = new Schema<TUser>(
             },
             immutable: true,
         },
+        password: {
+            type: String,
+            required: [true, 'Password is Required'],
+            select: false
+        },
         role: {
             type: String,
             enum: ['admin', 'user'],
             default: 'user'
         },
-        status: {
-            type: String,
-            enum: ['in-progress', 'blocked'],
-            default: 'in-progress',
-        },
-        isDeleted: {
+        isBlocked: {
             type: Boolean,
             default: false,
         },
@@ -51,7 +45,7 @@ const userSchema = new Schema<TUser>(
         // versionKey: false
     },
 );
-
+// Password hassing Function
 userSchema.pre('save', async function (next) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const user = this; // doc

@@ -5,6 +5,5 @@ export type TUser = {
     email: string;
     password: string;
     role: 'admin' | 'user';
-    status: 'in-progress' | 'blocked';
-    isDeleted: boolean;
+    isBlocked: boolean;
 };

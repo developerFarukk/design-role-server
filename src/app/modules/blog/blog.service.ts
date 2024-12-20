@@ -23,7 +23,7 @@ const getSingleBlogFromDB = async (id: string) => {
     return result;
 };
 
-// Update Department Data
+// Update bloge Data
 const updateBlogIntoDB = async (
     id: string,
     payload: Partial<Tblog>,
