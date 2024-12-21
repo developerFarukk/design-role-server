@@ -1,5 +1,5 @@
 
-import { FilterQuery, Query } from 'mongoose';
+import { FilterQuery, Query, Types } from 'mongoose';
 
 class QueryBuilder<T> {
     public modelQuery: Query<T[], T>;
@@ -30,21 +30,54 @@ class QueryBuilder<T> {
     }
 
 
-    sortBy() {
-        const sort = (this?.query?.sortBy as string)?.split(',')?.join(' ') || '-createdAt';
+    filter() {
+        const queryObj = { ...this.query };
 
-        this.modelQuery = this.modelQuery.sort(sort as string);
+        // Filtering
+        const excludeFields = ['search', 'sortBy', 'sortOrder', 'fields', 'filter'];
+
+        excludeFields.forEach((el) => delete queryObj[el]);
+
+        this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
         return this;
     }
 
+    filterByAuthor() {
+        const authorId = this.query?.filter;
 
-    paginate() {
-        const page = Number(this?.query?.page) || 1;
-        const limit = Number(this?.query?.limit) || 10;
-        const skip = (page - 1) * limit;
+        if (authorId) {
+           
+            if (Types.ObjectId.isValid(authorId as string)) {
+                this.modelQuery = this.modelQuery.find({ 'author._id': new Types.ObjectId(authorId as string) });
+            } else {
+                this.modelQuery = this.modelQuery.find({});
+            }
+        }
 
-        this.modelQuery = this.modelQuery.skip(skip).limit(limit);
+        return this;
+    }
+
+    sort() {
+        let sortStr: string | undefined;
+
+        if (this?.query?.sortBy && this?.query?.sortOrder) {
+            const sortBy = this.query?.sortBy as string;
+            const sortOrder = this.query?.sortOrder as string;
+
+            sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
+        }
+
+        if (!sortStr && this.query?.sortBy) {
+            const sortBy = this.query?.sortBy as string;
+            sortStr = `${sortBy}`;
+        } else if (!sortStr) {
+            sortStr = '-createdAt';
+        }
+
+        if (sortStr) {
+            this.modelQuery = this.modelQuery.sort(sortStr);
+        }
 
         return this;
     }
@@ -57,18 +90,7 @@ class QueryBuilder<T> {
         return this;
     }
 
-    filter() {
-        const queryObj = { ...this.query }; // copy
 
-        // Filtering
-        const excludeFields = ['search', 'sortBy', 'limit', 'page', 'fields'];
-
-        excludeFields.forEach((el) => delete queryObj[el]);
-
-        this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
-
-        return this;
-    }
 }
 
 export default QueryBuilder;

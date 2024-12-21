@@ -11,14 +11,6 @@ const createBlogIntoDB = async (payload: Tblog) => {
 };
 
 
-// All Blog Data Get
-// const getAllBlogFromDB = async () => {
-
-//     const result = await Blogs.find().select('_id title content author').populate('author', 'name email');
-
-//     return result;
-// };
-
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
     
     const blogQuery = new QueryBuilder(
@@ -27,9 +19,10 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
         query,
     )
         .search(blogSearchableFields)
-        .sortBy()
+        .sort()
         .filter()
-        .fields();
+        .fields()
+        .filterByAuthor()
         
     const result = await blogQuery.modelQuery;
     
