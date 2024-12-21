@@ -3,7 +3,8 @@ import { Blogs } from "./blog.model";
 
 // Create Blog
 const createBlogIntoDB = async (payload: Tblog) => {
-    const result = await Blogs.create(payload);
+    const blogUserData = await Blogs.create(payload);
+    const result = await Blogs.getBlogData(blogUserData._id);
     return result;
 };
 
@@ -41,7 +42,7 @@ const updateBlogIntoDB = async (
 // Delete Blog
 const deleteBlogFromDB = async (id: string) => {
     const result = await Blogs.findByIdAndUpdate(
-        {_id: id},
+        { _id: id },
         { isPublished: false },
         { new: true },
     );

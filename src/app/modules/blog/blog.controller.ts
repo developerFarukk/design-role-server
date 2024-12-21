@@ -10,7 +10,7 @@ const createblogs = catchAsync(async (req, res) => {
         await blogService.createBlogIntoDB(req.body);
 
     sendResponse(res, {
-        statusCode: httpStatus.OK,
+        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Blog is created succesfully',
         data: result,
