@@ -42,11 +42,7 @@ const updateBlogIntoDB = async (
 
 // Delete Blog
 const deleteBlogFromDB = async (id: string) => {
-    const result = await Blogs.findByIdAndUpdate(
-        { _id: id },
-        { isPublished: false },
-        { new: true },
-    );
+    const result = Blogs.findByIdAndDelete(id)
     return result;
 };
 
