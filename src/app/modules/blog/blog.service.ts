@@ -12,7 +12,7 @@ const createBlogIntoDB = async (payload: Tblog) => {
 // All Blog Data Get
 const getAllBlogFromDB = async () => {
 
-    const result = await Blogs.find().populate('author');
+    const result = await Blogs.find().select('_id title content author').populate('author', 'name email');
 
     return result;
 };
