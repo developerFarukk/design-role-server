@@ -35,7 +35,8 @@ const updateBlogIntoDB = async (
         {
             new: true,
         },
-    );
+    ).select('_id title content author')
+    .populate('author', 'name email');
     return result;
 };
 

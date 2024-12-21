@@ -13,7 +13,7 @@ const blogSchema = new Schema<Tblog>(
     {
         title: {
             type: String,
-            required: true,
+            required: [true, "Title is required"]
         },
         content: {
             type: String,
@@ -39,11 +39,6 @@ blogSchema.statics.isUserExists = async function (id: string) {
     const existingUser = await User.findOne({ id });
     return existingUser;
 };
-
-// Spasic data send function
-// blogSchema.statics.getBlogData = function (blog: string) {
-//     return this.findById(blog).select('_id title content author');
-// };
 
 // Spasic data send function with populated author
 blogSchema.statics.getBlogData = function (blogId: string) {
