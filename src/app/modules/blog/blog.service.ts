@@ -1,3 +1,5 @@
+import QueryBuilder from "../../builder/QueryBuilder";
+import { blogSearchableFields } from "./blog.constant";
 import { Tblog } from "./blog.interface";
 import { Blogs } from "./blog.model";
 
@@ -10,11 +12,29 @@ const createBlogIntoDB = async (payload: Tblog) => {
 
 
 // All Blog Data Get
-const getAllBlogFromDB = async () => {
+// const getAllBlogFromDB = async () => {
 
-    const result = await Blogs.find().select('_id title content author').populate('author', 'name email');
+//     const result = await Blogs.find().select('_id title content author').populate('author', 'name email');
 
+//     return result;
+// };
+
+const getAllBlogFromDB = async (query: Record<string, unknown>) => {
+    
+    const blogQuery = new QueryBuilder(
+        Blogs.find()
+        .select('_id title content author').populate('author', 'name email'),
+        query,
+    )
+        .search(blogSearchableFields)
+        .sortBy()
+        .filter()
+        .fields();
+        
+    const result = await blogQuery.modelQuery;
+    
     return result;
+   
 };
 
 // Single Blog data get
@@ -36,7 +56,7 @@ const updateBlogIntoDB = async (
             new: true,
         },
     ).select('_id title content author')
-    .populate('author', 'name email');
+        .populate('author', 'name email');
     return result;
 };
 

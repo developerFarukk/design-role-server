@@ -34,6 +34,8 @@ const blogSchema = new Schema<Tblog>(
 );
 
 
+
+
 //creating a custom static method
 blogSchema.statics.isUserExists = async function (id: string) {
     const existingUser = await User.findOne({ id });
@@ -46,6 +48,22 @@ blogSchema.statics.getBlogData = function (blogId: string) {
         .select('_id title content author')
         .populate('author', 'name email');
 };
+
+// Query Middleware
+blogSchema.pre('find', function (next) {
+    this.find({ isPublished: { $ne: false } });
+    next();
+});
+
+blogSchema.pre('findOne', function (next) {
+    this.find({ isPublished: { $ne: false } });
+    next();
+});
+
+blogSchema.pre('aggregate', function (next) {
+    this.pipeline().unshift({ $match: { isPublished: { $ne: false } } });
+    next();
+});
 
 
 
