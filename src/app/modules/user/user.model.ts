@@ -1,13 +1,15 @@
 
 import bcrypt from 'bcrypt';
-import {  Model, model, Schema } from "mongoose";
+import { Model, model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
 import config from '../../config';
 
 // Spasific filter interface data
 interface UserModel extends Model<TUser> {
     getPublicUserData(userId: string): Promise<Pick<TUser, '_id' | 'name' | 'email'>>;
+    getAuthUserData(userId: string): Promise<Pick<TUser, '_id' | 'name' | 'email' | 'isBlocked'>>;
 }
+
 
 // user Model
 const userSchema = new Schema<TUser>(
@@ -76,6 +78,10 @@ userSchema.post('save', function (doc, next) {
 // Spasic data send function
 userSchema.statics.getPublicUserData = function (userId: string) {
     return this.findById(userId).select('_id name email');
+};
+
+userSchema.statics.getAuthUserData = function (userId: string) {
+    return this.findById(userId).select('_id name email isBlocked');
 };
 
 

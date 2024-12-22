@@ -49,6 +49,7 @@ const getSingleBlog = catchAsync(async (req, res) => {
 
 // Update Blog
 const updateBlog = catchAsync(async (req, res) => {
+    // console.log('test', req.user);
     const { id } = req.params;
     const result =
         await blogService.updateBlogIntoDB(
