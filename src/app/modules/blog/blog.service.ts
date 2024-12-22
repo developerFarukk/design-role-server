@@ -1,5 +1,5 @@
-import QueryBuilder from "../../builder/QueryBuilder";
-import { blogSearchableFields } from "./blog.constant";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Tblog } from "./blog.interface";
 import { Blogs } from "./blog.model";
 
@@ -16,32 +16,53 @@ const createBlogIntoDB = async (payload: Tblog, tokenId: string) => {
 
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
 
-    const blogQuery = new QueryBuilder(
-        Blogs.find()
-            .select('_id title content author').populate('author', 'name email'),
-        query,
-    )
-        .search(blogSearchableFields)
-        .sort()
-        .filter()
-        .fields()
-        .filterByAuthor()
+    const { search, sortBy, sortOrder, filter } = query as {
+        search?: string;
+        sortBy?: string;
+        sortOrder?: string;
+        filter?: string;
+    };
 
-    const result = await blogQuery.modelQuery;
+    const queryObj: any = {};
 
-    return result;
+    // Handle search query
+    if (search) {
+        queryObj.$or = [
+            { title: { $regex: search, $options: 'i' } },
+            { content: { $regex: search, $options: 'i' } },
+        ];
+    }
 
+    // Handle filter query for author _id
+    if (filter) {
+        queryObj['author._id'] = filter;
+    }
+
+    // Handle sorting
+    const sortOptions: any = {};
+    if (sortBy) {
+        sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    }
+
+    // Execute the query
+    const blogQuery = Blogs.find(queryObj)
+        .select('_id title content author')
+        .populate('author', 'name email')
+        .sort(sortOptions);
+
+    // Return the result
+    return blogQuery;
 };
 
 // Single Blog data get
-const getSingleBlogFromDB = async (id: string,
-    payload: Partial<Tblog>) => {
-    const result = await Blogs.findById({ _id: id },
-        payload,
-    ).select('_id title content author')
-        .populate('author', 'name email');
-    return result;
-};
+// const getSingleBlogFromDB = async (id: string, payload: Partial<Tblog>) => {
+
+//     const result = await Blogs.findById({ id },
+//         payload,
+//     ).select('_id title content author')
+//         .populate('author', 'name email');
+//     return result;
+// };
 
 // Update bloge Data
 const updateBlogIntoDB = async (
@@ -77,7 +98,7 @@ const deleteBlogFromDB = async (id: string) => {
 export const blogService = {
     createBlogIntoDB,
     getAllBlogFromDB,
-    getSingleBlogFromDB,
+    // getSingleBlogFromDB,
     updateBlogIntoDB,
     deleteBlogFromDB
 

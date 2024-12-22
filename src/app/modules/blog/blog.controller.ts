@@ -23,9 +23,10 @@ const createblogs = catchAsync(async (req, res) => {
 // All Blog data
 const getAllBlog = catchAsync(async (req, res) => {
 
-    const result = await blogService.getAllBlogFromDB(req.query);
+    const query = req.query;
     
-
+    const result = await blogService.getAllBlogFromDB(query);
+    
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -35,20 +36,18 @@ const getAllBlog = catchAsync(async (req, res) => {
 });
 
 // Single Blog data get
-const getSingleBlog = catchAsync(async (req, res) => {
-    const { blogId: id } = req.params;
-    const result =
-        await blogService.getSingleBlogFromDB(
-            id,
-        );
+// const getSingleBlog = catchAsync(async (req, res) => {
+//     const { blogId: id } = req.params;
+//     const payload = {};
+//     const result = await blogService.getSingleBlogFromDB( id, payload );
 
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: ' Single Blog data get succesfully',
-        data: result,
-    });
-});
+//     sendResponse(res, {
+//         statusCode: httpStatus.OK,
+//         success: true,
+//         message: ' Single Blog data get succesfully',
+//         data: result,
+//     });
+// });
 
 // Update Blog
 const updateBlog = catchAsync(async (req, res) => {
@@ -87,7 +86,7 @@ const deleteBlog = catchAsync(async (req, res) => {
 export const BlogsControllers = {
     createblogs,
     getAllBlog,
-    getSingleBlog,
+    // getSingleBlog,
     updateBlog,
     deleteBlog
 

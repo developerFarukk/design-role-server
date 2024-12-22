@@ -21,10 +21,10 @@ router.post(
 router.get('/', BlogsControllers.getAllBlog);
 
 // Single  Blog data get Route
-router.get(
-    '/:blogId', auth(USER_ROLE.user),
-    BlogsControllers.getSingleBlog,
-);
+// router.get(
+//     '/:blogId', auth(USER_ROLE.user),
+//     BlogsControllers.getSingleBlog,
+// );
 
 // Update Blog Route
 router.patch(
