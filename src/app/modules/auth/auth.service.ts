@@ -9,6 +9,7 @@ import { createToken } from "./auth.utils";
 
 // User Register function
 const userRegisterDB = async (payload: TUser) => {
+    
     const publicUserData = await User.create(payload);
     const result = await User.getPublicUserData(publicUserData._id);
 
@@ -55,7 +56,6 @@ const loginUserWithDB = async (payload: { email: string; password: string }) => 
     );
 
     return { token };
-    return { user };
 }
 
 export const AuthService = {

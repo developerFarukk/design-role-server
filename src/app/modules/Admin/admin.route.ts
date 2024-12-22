@@ -13,12 +13,12 @@ router.patch(
 
 // User unBlocked Route
 router.patch(
-    '/users/:userId/unblock', AdminControllers.userunBlocked,
+    '/users/:userId/unblock', auth(USER_ROLE.admin), AdminControllers.userunBlocked,
 );
 
 // Delete Blog by Admin Route
 router.delete(
-    '/blogs/:id', AdminControllers.deleteBlogByAdmin,
+    '/blogs/:id', auth(USER_ROLE.admin), AdminControllers.deleteBlogByAdmin,
 );
 
 export const AdminRoutes = router;

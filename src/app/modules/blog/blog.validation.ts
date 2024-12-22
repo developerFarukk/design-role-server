@@ -11,9 +11,6 @@ const createBlogValidation = z.object({
         content: z.string({
             required_error: 'content is required',
         }),
-        author: z.string({
-            required_error: 'content is required',
-        }),
     }),
 });
 

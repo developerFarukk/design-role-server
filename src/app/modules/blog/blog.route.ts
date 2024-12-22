@@ -10,7 +10,7 @@ const router = express.Router();
 
 // Creat Blogs Data Route
 router.post(
-    '/', auth(),
+    '/', auth(USER_ROLE.user),
     validateRequest(
         BlogValidation.createBlogValidation,
     ),
@@ -22,7 +22,7 @@ router.get('/', BlogsControllers.getAllBlog);
 
 // Single  Blog data get Route
 router.get(
-    '/:blogId', auth(),
+    '/:blogId', auth(USER_ROLE.user),
     BlogsControllers.getSingleBlog,
 );
 
@@ -37,7 +37,7 @@ router.patch(
 
 // Delete Blog Route
 router.delete(
-    '/:id', BlogsControllers.deleteBlog,
+    '/:id', auth(USER_ROLE.user),  BlogsControllers.deleteBlog,
 );
 
 export const BlogsRoutes = router;

@@ -4,8 +4,11 @@ import { Tblog } from "./blog.interface";
 import { Blogs } from "./blog.model";
 
 // Create Blog
-const createBlogIntoDB = async (payload: Tblog) => {
-    const blogUserData = await Blogs.create(payload);
+const createBlogIntoDB = async (payload: Tblog, tokenId: string) => {
+
+    const newPayload = { ...payload, author: tokenId };
+
+    const blogUserData = await Blogs.create(newPayload);
     const result = await Blogs.getBlogData(blogUserData._id);
     return result;
 };
@@ -31,8 +34,12 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
 };
 
 // Single Blog data get
-const getSingleBlogFromDB = async (id: string) => {
-    const result = await Blogs.findById(id).populate('author');
+const getSingleBlogFromDB = async (id: string,
+    payload: Partial<Tblog>) => {
+    const result = await Blogs.findById({ _id: id },
+        payload,
+    ).select('_id title content author')
+        .populate('author', 'name email');
     return result;
 };
 
@@ -41,7 +48,7 @@ const updateBlogIntoDB = async (
     id: string,
     payload: Partial<Tblog>
 ) => {
-    
+
     const result = await Blogs.findOneAndUpdate(
         { _id: id },
         payload,

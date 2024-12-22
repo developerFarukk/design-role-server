@@ -8,8 +8,14 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const auth = (...requiredRoles: TUserRole[]) => {
     return catchAsync(async (req, res, next) => {
-        // const token = req.headers.authorization;
+
+        // const bearerToken = req.headers.authorization;
+        // console.log(bearerToken);
+        
+        
         const token = req.headers.authorization?.split(' ')[1];
+        // console.log(token);
+        
 
         // checking if the token is missing
         if (!token) {
@@ -35,7 +41,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
         // checking if the user is Blocked
         const isBlocked = user?.isBlocked
-        
+
         if (isBlocked!) {
             throw new Error('This user is blocked !')
         }
@@ -63,6 +69,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
             throw new Error('You are not authorized')
         }
 
+        req.user = decoded as JwtPayload;
         next();
     })
 }

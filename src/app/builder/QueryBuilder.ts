@@ -45,6 +45,8 @@ class QueryBuilder<T> {
 
     filterByAuthor() {
         const authorId = this.query?.filter;
+        // console.log(authorId);
+        
 
         if (authorId) {
            
