@@ -12,10 +12,10 @@ const createBlogIntoDB = async (payload: Tblog) => {
 
 
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
-    
+
     const blogQuery = new QueryBuilder(
         Blogs.find()
-        .select('_id title content author').populate('author', 'name email'),
+            .select('_id title content author').populate('author', 'name email'),
         query,
     )
         .search(blogSearchableFields)
@@ -23,24 +23,23 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
         .filter()
         .fields()
         .filterByAuthor()
-        
+
     const result = await blogQuery.modelQuery;
-    
+
     return result;
-   
+
 };
 
 // Single Blog data get
 const getSingleBlogFromDB = async (id: string) => {
-    const result =
-        await Blogs.findById(id).populate('author');
+    const result = await Blogs.findById(id).populate('author');
     return result;
 };
 
 // Update bloge Data
 const updateBlogIntoDB = async (
     id: string,
-    payload: Partial<Tblog>,
+    payload: Partial<Tblog>
 ) => {
     const result = await Blogs.findOneAndUpdate(
         { _id: id },
@@ -48,7 +47,8 @@ const updateBlogIntoDB = async (
         {
             new: true,
         },
-    ).select('_id title content author')
+    )
+        .select('_id title content author')
         .populate('author', 'name email');
     return result;
 };
@@ -58,8 +58,6 @@ const deleteBlogFromDB = async (id: string) => {
     const result = Blogs.findByIdAndDelete(id)
     return result;
 };
-
-
 
 export const blogService = {
     createBlogIntoDB,
