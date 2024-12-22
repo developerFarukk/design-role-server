@@ -2,7 +2,7 @@
 
 export type TErrorSources = {
     path: string | number;
-    message: string;
+    details: string;
 }[];
 
 export type TGenericErrorResponse = {

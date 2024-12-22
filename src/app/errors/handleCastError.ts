@@ -9,7 +9,7 @@ const handleCastError = (
     const errorSources: TErrorSources = [
         {
             path: err.path,
-            message: err.message,
+            details: err.message,
         },
     ];
 
