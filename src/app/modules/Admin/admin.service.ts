@@ -1,4 +1,5 @@
 
+import { Blogs } from "../blog/blog.model";
 import { User } from "../user/user.model";
 
 // Blocked user
@@ -31,7 +32,6 @@ const userBlockWithAdminFromDB = async (userId: string) => {
     return result;
 };
 
-
 // unBlocked user
 const userunBlockWithAdminFromDB = async (userId: string) => {
 
@@ -62,10 +62,25 @@ const userunBlockWithAdminFromDB = async (userId: string) => {
     return result;
 };
 
+// Delete Blog By Admin
+const deleteBlogByAdminFromDB = async (id: string) => {
+
+    const blog = await Blogs.findById(id);
+
+    // Check blog Exist
+    if (!blog) {
+        throw new Error('This blog is already deleted !')
+    }
+
+    const result = Blogs.findByIdAndDelete(id)
+    return result;
+};
+
 
 
 export const AdminServices = {
     userBlockWithAdminFromDB,
-    userunBlockWithAdminFromDB
+    userunBlockWithAdminFromDB,
+    deleteBlogByAdminFromDB
 
 };

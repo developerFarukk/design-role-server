@@ -64,7 +64,7 @@ const updateBlog = catchAsync(async (req, res) => {
     });
 });
 
-// Delete Course Data
+// Delete Blog Data
 const deleteBlog = catchAsync(async (req, res) => {
     const id = req.params.id;
 

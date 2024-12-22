@@ -7,7 +7,7 @@ import { AdminServices } from "./admin.service";
 const userBlocked = catchAsync(async (req, res) => {
 
     const userId = req.params.userId;
-    
+
     await AdminServices.userBlockWithAdminFromDB(userId);
 
     sendResponse(res, {
@@ -22,7 +22,7 @@ const userBlocked = catchAsync(async (req, res) => {
 const userunBlocked = catchAsync(async (req, res) => {
 
     const userId = req.params.userId;
-    
+
     await AdminServices.userunBlockWithAdminFromDB(userId);
 
     sendResponse(res, {
@@ -33,9 +33,24 @@ const userunBlocked = catchAsync(async (req, res) => {
     });
 });
 
+// Delete Blog Data By Admin
+const deleteBlogByAdmin = catchAsync(async (req, res) => {
+    const id = req.params.id;
+
+    await AdminServices.deleteBlogByAdminFromDB(id);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Blog deleted succesfully',
+        data: undefined
+    });
+});
+
 
 export const AdminControllers = {
     userBlocked,
-    userunBlocked
+    userunBlocked,
+    deleteBlogByAdmin
 
 };

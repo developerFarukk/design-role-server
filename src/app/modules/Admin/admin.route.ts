@@ -6,12 +6,17 @@ const router = express.Router();
 
 // User Blocked Route
 router.patch(
-    '/:userId/block', AdminControllers.userBlocked,
+    '/users/:userId/block', AdminControllers.userBlocked,
 );
 
 // User unBlocked Route
 router.patch(
-    '/:userId/unblock', AdminControllers.userunBlocked,
+    '/users/:userId/unblock', AdminControllers.userunBlocked,
+);
+
+// Delete Blog by Admin Route
+router.delete(
+    '/blogs/:id', AdminControllers.deleteBlogByAdmin,
 );
 
 export const AdminRoutes = router;

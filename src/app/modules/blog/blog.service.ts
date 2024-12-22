@@ -55,6 +55,13 @@ const updateBlogIntoDB = async (
 
 // Delete Blog
 const deleteBlogFromDB = async (id: string) => {
+    const blog = await Blogs.findById(id);
+
+    // Check blog Exist
+    if (!blog) {
+        throw new Error('This blog is already deleted !')
+    }
+
     const result = Blogs.findByIdAndDelete(id)
     return result;
 };

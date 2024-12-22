@@ -8,7 +8,7 @@ const router = Router();
 
 const moduleRoutes = [
     {
-        path: '/admin/users',
+        path: '/admin',
         route: AdminRoutes,
     },
     {
