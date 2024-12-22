@@ -9,4 +9,9 @@ router.patch(
     '/:userId/block', AdminControllers.userBlocked,
 );
 
+// User unBlocked Route
+router.patch(
+    '/:userId/unblock', AdminControllers.userunBlocked,
+);
+
 export const AdminRoutes = router;

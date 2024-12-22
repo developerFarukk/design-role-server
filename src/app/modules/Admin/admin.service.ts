@@ -1,6 +1,7 @@
 
 import { User } from "../user/user.model";
 
+// Blocked user
 const userBlockWithAdminFromDB = async (userId: string) => {
 
     const user = await User.findById(userId);
@@ -10,16 +11,15 @@ const userBlockWithAdminFromDB = async (userId: string) => {
         throw new Error('This user is not found !')
     }
 
+    // Check User Admin
+    if (user.role === 'admin') {
+        throw new Error('This user is an admin. Not Alow Blocked')
+    }
+
     // Check User Already Blocked
     if (user.isBlocked) {
         throw new Error('User is already blocked!')
     }
-
-    // Check User Admin
-    if (user.role === 'admin') {
-        throw new Error('This user is an admin and cannot be blocked')
-    }
-
 
     const result = await User.findOneAndUpdate(
         { _id: userId },
@@ -32,8 +32,40 @@ const userBlockWithAdminFromDB = async (userId: string) => {
 };
 
 
+// unBlocked user
+const userunBlockWithAdminFromDB = async (userId: string) => {
+
+    const user = await User.findById(userId);
+
+    // Check User Find 
+    if (!user) {
+        throw new Error('This user is not found !')
+    }
+
+    // Check User Admin
+    if (user.role === 'admin') {
+        throw new Error('This user is an admin. Not Alow unBlocked')
+    }
+
+    // Check User Already Blocked
+    if (!user.isBlocked!) {
+        throw new Error('User is already unBlocked!')
+    }
+
+    const result = await User.findOneAndUpdate(
+        { _id: userId },
+        { isBlocked: false },
+        {
+            new: true,
+        },
+    )
+    return result;
+};
+
+
 
 export const AdminServices = {
-    userBlockWithAdminFromDB
+    userBlockWithAdminFromDB,
+    userunBlockWithAdminFromDB
 
 };
