@@ -12,6 +12,21 @@ The Blog Platform API allows users to create, update, delete, and view blogs. Th
 - Express.js
 - MongoDB with Mongoose
 
+---
+
+- **Website Live Link**: <a href="https://blog-project-2059.vercel.app" target="_blank" rel="noopener noreferrer">Blog API Project</a>
+- **Requirement Link**: <a href="https://github.com/Apollo-Level2-Web-Dev/b4-assignment-3" target="_blank" rel="noopener noreferrer">Blog API Project</a>
+  **VIDIO Review Link**: <a href="https://drive.google.com/file/d/1yQAq8_xwQZgoJ15Fi1cNhRQLdzg4Gm3I/view?usp=sharing" target="_blank" rel="noopener noreferrer">Video Presentation</a>
+
+
+  - **LogIn Admin Credentials**:
+  ```json
+  {
+    "email": "admin@gmail.com",
+    "password": "123456"
+  }
+  
+
 ## Features
 
 ### User Roles
@@ -74,10 +89,3 @@ Registers a new user.
   }
 
 
-
-- **LogIn Admin Credentials**:
-  ```json
-  {
-    "email": "admin@gmail.com",
-    "password": "123456"
-  }
