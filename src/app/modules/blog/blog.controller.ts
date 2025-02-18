@@ -32,19 +32,6 @@ const getAllBlog = catchAsync(async (req, res) => {
     });
 });
 
-// Single Blog data get
-// const getSingleBlog = catchAsync(async (req, res) => {
-//     const { blogId: id } = req.params;
-//     const payload = {};
-//     const result = await blogService.getSingleBlogFromDB( id, payload );
-
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         success: true,
-//         message: ' Single Blog data get succesfully',
-//         data: result,
-//     });
-// });
 
 // Update Blog
 const updateBlog = catchAsync(async (req, res) => {

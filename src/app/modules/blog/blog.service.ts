@@ -23,15 +23,6 @@ const getAllBlogFromDB = async () => {
     return blog;
 };
 
-// Single Blog data get
-// const getSingleBlogFromDB = async (id: string, payload: Partial<Tblog>) => {
-
-//     const result = await Blogs.findById({ id },
-//         payload,
-//     ).select('_id title content author')
-//         .populate('author', 'name email');
-//     return result;
-// };
 
 // Update bloge Data
 const updateBlogIntoDB = async (id: string, payload: Partial<Tblog>) => {
@@ -51,7 +42,7 @@ const deleteBlogFromDB = async (id: string) => {
 
     // Check blog Exist
     if (!blog) {
-        throw new Error('This blog is already deleted !')
+        throw new Error('This blog not found !')
     }
 
     const result = Blogs.findByIdAndDelete(id)
@@ -61,7 +52,6 @@ const deleteBlogFromDB = async (id: string) => {
 export const blogService = {
     createBlogIntoDB,
     getAllBlogFromDB,
-    // getSingleBlogFromDB,
     updateBlogIntoDB,
     deleteBlogFromDB
 
