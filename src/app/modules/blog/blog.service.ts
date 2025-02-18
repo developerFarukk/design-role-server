@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 import { Tblog } from "./blog.interface";
 import { Blogs } from "./blog.model";
