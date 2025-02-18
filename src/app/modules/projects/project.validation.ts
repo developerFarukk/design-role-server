@@ -22,6 +22,22 @@ const createProjectValidation = z.object({
 });
 
 
+
+// Create Project validation
+const updateProjectValidation = z.object({
+    body: z.object({
+        project: z.object({
+            title: z.string().optional(),
+            descriptions: z.string().optional(),
+            liveLink: z.string().optional(),
+            githubClient: z.string().optional(),
+            githubServer: z.string().optional(),
+        })
+    }),
+});
+
+
 export const ProjectValidation = {
     createProjectValidation,
+    updateProjectValidation
 };

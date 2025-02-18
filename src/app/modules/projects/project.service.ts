@@ -26,8 +26,31 @@ const createProjectIntoDB = async (payload: TProject, file: any) => {
     return result;
 };
 
+// Update Project
+const updateProjectIntoDB = async (id: string, payload: Partial<TProject>, file: any) => {
+
+
+    if (file) {
+        const imageName = `${file.filename}`;
+        const path = file?.path;
+
+        //send image to cloudinary
+        const { secure_url } = await sendImageToCloudinary(imageName, path);
+        payload.image = secure_url as string;
+    }
+
+    const result = await Project.findOneAndUpdate({ _id: id }, payload,
+        {
+            new: true,
+        },
+    )
+    
+    return result;
+};
+
 
 export const projectService = {
     createProjectIntoDB,
+    updateProjectIntoDB
 
 };

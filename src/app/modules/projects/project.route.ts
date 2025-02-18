@@ -22,6 +22,17 @@ router.post(
 
 
 
+// Update Project Route
+router.patch(
+    '/:id',
+    upload.single('file'),
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = JSON.parse(req.body.data);
+        next();
+    },
+    validateRequest(ProjectValidation.updateProjectValidation),
+    ProjectControllers.updateProject,
+);
 
 
 
