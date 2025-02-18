@@ -7,6 +7,7 @@ import { TProject } from "./project.interface";
 
 const blogSchema = new Schema<TProject>(
     {
+        // _id: { type: Types.ObjectId, required: false },
         title: {
             type: String,
             required: [true, "Title is required"]
@@ -19,7 +20,7 @@ const blogSchema = new Schema<TProject>(
             type: String,
             required: [true, "LiveLink is required"]
         },
-        image: { type: String, required: false },
+        image: { type: String, required: false, default: '' },
         githubClient: { type: String, required: false },
         githubServer: { type: String, required: false },
     },
