@@ -51,11 +51,7 @@ const getAllBlog = catchAsync(async (req, res) => {
 const updateBlog = catchAsync(async (req, res) => {
     // console.log('test', req.user);
     const { id } = req.params;
-    const result =
-        await blogService.updateBlogIntoDB(
-            id,
-            req.body,
-        );
+    const result = await blogService.updateBlogIntoDB( id, req.body );
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

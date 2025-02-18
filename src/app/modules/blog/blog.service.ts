@@ -9,7 +9,7 @@ const createBlogIntoDB = async (payload: Tblog) => {
     const newPayload = { ...payload };
 
     const result = await Blogs.create(newPayload);
-    
+
     return result;
 };
 
@@ -77,8 +77,7 @@ const updateBlogIntoDB = async (
             new: true,
         },
     )
-        .select('_id title content author')
-        .populate('author', 'name email');
+
     return result;
 };
 

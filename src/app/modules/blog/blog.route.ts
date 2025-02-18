@@ -26,10 +26,8 @@ router.get('/', BlogsControllers.getAllBlog);
 
 // Update Blog Route
 router.patch(
-    '/:id', auth(USER_ROLE.user),
-    validateRequest(
-        BlogValidation.updateBlogValidation,
-    ),
+    '/:id',
+    validateRequest( BlogValidation.updateBlogValidation ),
     BlogsControllers.updateBlog,
 );
 
