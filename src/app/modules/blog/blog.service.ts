@@ -14,44 +14,13 @@ const createBlogIntoDB = async (payload: Tblog) => {
 };
 
 
-const getAllBlogFromDB = async (query: Record<string, unknown>) => {
-
-    const { search, sortBy, sortOrder, filter } = query as {
-        search?: string;
-        sortBy?: string;
-        sortOrder?: string;
-        filter?: string;
-    };
-
-    const queryObj: any = {};
-
-    // Handle search query
-    if (search) {
-        queryObj.$or = [
-            { title: { $regex: search, $options: 'i' } },
-            { content: { $regex: search, $options: 'i' } },
-        ];
-    }
-
-    // Handle filter query for author _id
-    if (filter) {
-        queryObj['author._id'] = filter;
-    }
-
-    // Handle sorting
-    const sortOptions: any = {};
-    if (sortBy) {
-        sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
-    }
+const getAllBlogFromDB = async () => {
 
     // Execute the query
-    const blogQuery = Blogs.find(queryObj)
-        .select('_id title content author')
-        .populate('author', 'name email')
-        .sort(sortOptions);
+    const blog = Blogs.find() 
+     
 
-    // Return the result
-    return blogQuery;
+    return blog;
 };
 
 // Single Blog data get
@@ -65,14 +34,9 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
 // };
 
 // Update bloge Data
-const updateBlogIntoDB = async (
-    id: string,
-    payload: Partial<Tblog>
-) => {
+const updateBlogIntoDB = async (id: string, payload: Partial<Tblog>) => {
 
-    const result = await Blogs.findOneAndUpdate(
-        { _id: id },
-        payload,
+    const result = await Blogs.findOneAndUpdate({ _id: id }, payload,
         {
             new: true,
         },
