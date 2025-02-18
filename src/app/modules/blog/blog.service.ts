@@ -4,12 +4,12 @@ import { Tblog } from "./blog.interface";
 import { Blogs } from "./blog.model";
 
 // Create Blog
-const createBlogIntoDB = async (payload: Tblog, tokenId: string) => {
+const createBlogIntoDB = async (payload: Tblog) => {
 
-    const newPayload = { ...payload, author: tokenId };
+    const newPayload = { ...payload };
 
-    const blogUserData = await Blogs.create(newPayload);
-    const result = await Blogs.getBlogData(blogUserData._id);
+    const result = await Blogs.create(newPayload);
+    
     return result;
 };
 

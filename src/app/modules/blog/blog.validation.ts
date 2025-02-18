@@ -11,6 +11,8 @@ const createBlogValidation = z.object({
         content: z.string({
             required_error: 'content is required',
         }),
+        image: z.string().optional(),
+        categoty: z.string().optional(),
     }),
 });
 

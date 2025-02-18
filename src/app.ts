@@ -18,7 +18,7 @@ app.use('/api', router);
 const getAllController = (req: Request, res: Response) => {
     res.send({
         status: true,
-        message: 'Blog project Server is Rouning Live ⚡',
+        message: 'Design-Role Server is Rouning Live ⚡',
     })
 }
 

@@ -10,10 +10,8 @@ const router = express.Router();
 
 // Creat Blogs Data Route
 router.post(
-    '/', auth(USER_ROLE.user),
-    validateRequest(
-        BlogValidation.createBlogValidation,
-    ),
+    '/',
+    validateRequest( BlogValidation.createBlogValidation ),
     BlogsControllers.createblogs,
 );
 
