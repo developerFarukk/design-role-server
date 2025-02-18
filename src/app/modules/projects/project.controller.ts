@@ -20,14 +20,29 @@ const createProject = catchAsync(async (req, res) => {
 });
 
 
+// Get All Project data
+// All Blog data
+const getAllProject = catchAsync(async (req, res) => {
+
+    const result = await projectService.getAllProjectFromDB();
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Project fetched successfully',
+        data: result,
+    });
+});
+
+
 // Update Project
 const updateProject = catchAsync(async (req, res) => {
 
     const { project: projectData } = req.body;
     const { id } = req.params;
-    
 
-    const result = await projectService.updateProjectIntoDB( id, projectData, req.file );
+
+    const result = await projectService.updateProjectIntoDB(id, projectData, req.file);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -41,6 +56,7 @@ const updateProject = catchAsync(async (req, res) => {
 
 export const ProjectControllers = {
     createProject,
+    getAllProject,
     updateProject
 
 };

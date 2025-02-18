@@ -14,6 +14,7 @@ const createBlogIntoDB = async (payload: Tblog) => {
 };
 
 
+// Get All Blog
 const getAllBlogFromDB = async () => {
 
     // Execute the query

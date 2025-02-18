@@ -21,6 +21,10 @@ router.post(
 );
 
 
+// All Data get of Project Route
+router.get('/', ProjectControllers.getAllProject);
+
+
 
 // Update Project Route
 router.patch(
