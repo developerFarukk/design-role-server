@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Creat Project Data Route
 router.post(
-    '/',
+    '/create-project',
     validateRequest(ProjectValidation.createProjectValidation),
     ProjectControllers.createProject
 );

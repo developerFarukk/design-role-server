@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Creat Blogs Data Route
 router.post(
-    '/',
+    '/create-blog',
     validateRequest( BlogValidation.createBlogValidation ),
     BlogsControllers.createblogs,
 );
