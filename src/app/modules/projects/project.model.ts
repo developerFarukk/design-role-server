@@ -32,4 +32,4 @@ const blogSchema = new Schema<TProject>(
 
 
 
-export const Blogs = model<TProject>('Project', blogSchema);
+export const Project = model<TProject>('Project', blogSchema);
