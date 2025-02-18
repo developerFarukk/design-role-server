@@ -18,7 +18,7 @@ const createProject = catchAsync(async (req, res) => {
 
 
 
-export const BlogsControllers = {
+export const ProjectControllers = {
     createProject
 
 };
