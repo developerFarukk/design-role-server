@@ -1,9 +1,9 @@
 
-export type Tblog = {
+export type TProject = {
     _id?: string,
     title: string;
     descriptions: string;
-    livelink: string;
+    liveLink: string;
     image?: string;
     githubClient?: string
     githubServer?: string
