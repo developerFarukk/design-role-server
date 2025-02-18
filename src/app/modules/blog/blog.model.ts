@@ -26,7 +26,4 @@ const blogSchema = new Schema<Tblog>(
 
 
 
-export const Blogs = model<Tblog>(
-    'Blog',
-    blogSchema,
-);
+export const Blogs = model<Tblog>( 'Blog', blogSchema );
