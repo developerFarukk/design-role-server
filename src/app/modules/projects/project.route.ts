@@ -39,6 +39,12 @@ router.patch(
 );
 
 
+// Delete Project Route
+router.delete(
+    '/:id',  ProjectControllers.deleteProject,
+);
+
+
 
 
 export const ProjectRoutes = router;

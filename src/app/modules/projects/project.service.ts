@@ -59,10 +59,26 @@ const updateProjectIntoDB = async (id: string, payload: Partial<TProject>, file:
 };
 
 
+// Delete Project
+const deleteProjectFromDB = async (id: string) => {
+
+    const project = await Project.findById(id);
+
+    // Check Project Exist
+    if (!project) {
+        throw new Error('This project not found !')
+    }
+
+    const result = Project.findByIdAndDelete(id)
+    return result;
+};
+
+
 export const projectService = {
     createProjectIntoDB,
     getAllProjectFromDB,
     updateProjectIntoDB,
+    deleteProjectFromDB
 
 
 };
