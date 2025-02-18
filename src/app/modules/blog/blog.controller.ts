@@ -66,7 +66,6 @@ const deleteBlog = catchAsync(async (req, res) => {
 export const BlogsControllers = {
     createblogs,
     getAllBlog,
-    // getSingleBlog,
     updateBlog,
     deleteBlog
 
