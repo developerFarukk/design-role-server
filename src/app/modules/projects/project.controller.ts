@@ -20,8 +20,7 @@ const createProject = catchAsync(async (req, res) => {
 });
 
 
-// Get All Project data
-// All Blog data
+// All project data
 const getAllProject = catchAsync(async (req, res) => {
 
     const result = await projectService.getAllProjectFromDB();
@@ -34,6 +33,19 @@ const getAllProject = catchAsync(async (req, res) => {
     });
 });
 
+
+// Get Single Project
+const getSingleProject = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const result = await projectService.getSingleProjectFromDB(id);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Single Project is retrieved succesfully',
+        data: result,
+    });
+});
 
 // Update Project
 const updateProject = catchAsync(async (req, res) => {
@@ -74,6 +86,7 @@ export const ProjectControllers = {
     createProject,
     getAllProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    getSingleProject
 
 };

@@ -36,6 +36,15 @@ const getAllProjectFromDB = async () => {
 };
 
 
+// Get Single Project
+const getSingleProjectFromDB = async (id: string) => {
+
+    const result = await Project.findById(id)
+    
+    return result;
+};
+
+
 // Update Project
 const updateProjectIntoDB = async (id: string, payload: Partial<TProject>, file: any) => {
 
@@ -78,7 +87,8 @@ export const projectService = {
     createProjectIntoDB,
     getAllProjectFromDB,
     updateProjectIntoDB,
-    deleteProjectFromDB
+    deleteProjectFromDB,
+    getSingleProjectFromDB
 
 
 };

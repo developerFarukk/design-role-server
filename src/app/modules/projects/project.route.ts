@@ -25,6 +25,10 @@ router.post(
 router.get('/', ProjectControllers.getAllProject);
 
 
+// Single Project data get Route
+router.get("/:id", ProjectControllers.getSingleProject)
+
+
 
 // Update Project Route
 router.patch(

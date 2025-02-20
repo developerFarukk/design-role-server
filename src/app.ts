@@ -9,7 +9,11 @@ const app: Application = express();
 
 // middleware
 app.use(express.json())
-app.use(cors());
+// app.use(cors());
+
+// app.use(cors({ origin: ['http://localhost:5001'] }));
+app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+// app.use(cors({ origin: ['https://ridenest.vercel.app', 'http://localhost:5173'], credentials: true }));
 
 // application routes
 app.use('/api', router);
