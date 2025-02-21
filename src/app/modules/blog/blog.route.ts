@@ -17,6 +17,10 @@ router.post(
 router.get('/', BlogsControllers.getAllBlog);
 
 
+// Single Blog data get Route
+router.get("/:id", BlogsControllers.getSingleBlog)
+
+
 // Update Blog Route
 router.patch(
     '/:id',

@@ -7,7 +7,7 @@ import httpStatus from 'http-status';
 
 // Create Blogs
 const createblogs = catchAsync(async (req, res) => {
-    
+
     const result = await blogService.createBlogIntoDB(req.body);
 
     sendResponse(res, {
@@ -23,7 +23,7 @@ const getAllBlog = catchAsync(async (req, res) => {
 
 
     const result = await blogService.getAllBlogFromDB();
-    
+
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -33,11 +33,25 @@ const getAllBlog = catchAsync(async (req, res) => {
 });
 
 
+// Get Single Project
+const getSingleBlog = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const result = await blogService.getSingleBlogFromDB(id);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Single Blog is retrieved succesfully',
+        data: result,
+    });
+});
+
+
 // Update Blog
 const updateBlog = catchAsync(async (req, res) => {
     // console.log('test', req.user);
     const { id } = req.params;
-    const result = await blogService.updateBlogIntoDB( id, req.body );
+    const result = await blogService.updateBlogIntoDB(id, req.body);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -67,6 +81,7 @@ export const BlogsControllers = {
     createblogs,
     getAllBlog,
     updateBlog,
-    deleteBlog
+    deleteBlog,
+    getSingleBlog
 
 };
