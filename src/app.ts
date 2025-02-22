@@ -12,7 +12,7 @@ app.use(express.json())
 // app.use(cors());
 
 // app.use(cors({ origin: ['http://localhost:5001'] }));
-app.use(cors({ origin: ['http://localhost:3000', 'https://design-role-six.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://design-role-1.vercel.app'], credentials: true }));
 
 // application routes
 app.use('/api', router);
