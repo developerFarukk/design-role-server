@@ -63,11 +63,9 @@ const getSingleProject = catchAsync(async (req, res) => {
 // Update Project
 const updateProject = catchAsync(async (req, res) => {
 
-    const { project: projectData } = req.body;
     const { id } = req.params;
 
-
-    const result = await projectService.updateProjectIntoDB(id, projectData);
+    const result = await projectService.updateProjectIntoDB(id, req.body);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

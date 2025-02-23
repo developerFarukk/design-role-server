@@ -1,7 +1,10 @@
 
 // import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
+
+import AppError from "../../errors/AppError";
 import { TProject } from "./project.interface";
 import { Project } from "./project.model";
+import httpStatus from 'http-status';
 
 
 
@@ -48,6 +51,12 @@ const getAllProjectFromDB = async () => {
 // Get Single Project
 const getSingleProjectFromDB = async (id: string) => {
 
+    const project = await Project.findById({ _id: id })
+
+    if (!project) {
+        throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !');
+    }
+
     const result = await Project.findById(id)
 
     return result;
@@ -66,6 +75,14 @@ const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
     //     const { secure_url } = await sendImageToCloudinary(imageName, path);
     //     payload.image = secure_url as string;
     // }
+    // console.log(payload);
+
+    const project = await Project.findById({ _id: id })
+
+    if (!project) {
+        throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !');
+    }
+
 
     const result = await Project.findOneAndUpdate({ _id: id }, payload,
         {
