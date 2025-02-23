@@ -5,11 +5,24 @@ import httpStatus from 'http-status';
 
 
 // Create Project
+// const createProject = catchAsync(async (req, res) => {
+
+//     const { project: projectData } = req.body;
+
+//     const result = await projectService.createProjectIntoDB(projectData, req.file);
+
+//     sendResponse(res, {
+//         statusCode: httpStatus.CREATED,
+//         success: true,
+//         message: 'Project is created succesfully',
+//         data: result,
+//     });
+// });
+
+
 const createProject = catchAsync(async (req, res) => {
 
-    const { project: projectData } = req.body;
-
-    const result = await projectService.createProjectIntoDB(projectData, req.file);
+    const result = await projectService.createProjectIntoDB(req.body);
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -54,7 +67,7 @@ const updateProject = catchAsync(async (req, res) => {
     const { id } = req.params;
 
 
-    const result = await projectService.updateProjectIntoDB(id, projectData, req.file);
+    const result = await projectService.updateProjectIntoDB(id, projectData);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

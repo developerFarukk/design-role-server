@@ -1,16 +1,14 @@
-
-
-
 import { model, Schema } from "mongoose";
 import { TProject } from "./project.interface";
 
 
-const blogSchema = new Schema<TProject>(
+
+const projectSchema = new Schema<TProject>(
     {
         // _id: { type: Types.ObjectId, required: false },
         title: {
             type: String,
-            required: [true, "Title is required"]
+            required: [true, "Title is required "]
         },
         descriptions: {
             type: String,
@@ -33,4 +31,4 @@ const blogSchema = new Schema<TProject>(
 
 
 
-export const Project = model<TProject>('Project', blogSchema);
+export const Project = model<TProject>('Project', projectSchema);

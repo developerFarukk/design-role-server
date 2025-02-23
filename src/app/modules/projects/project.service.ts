@@ -1,27 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
+
+// import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 import { TProject } from "./project.interface";
 import { Project } from "./project.model";
 
 
 
 // Create Project
-const createProjectIntoDB = async (payload: TProject, file: any) => {
+// const createProjectIntoDB = async (payload: TProject, file: any) => {
 
-    if (file) {
-        const imageName = `${payload?.title}`;
-        const path = file?.path;
+//     if (file) {
+//         const imageName = `${payload?.title}`;
+//         const path = file?.path;
 
-        //send image to cloudinary
-        const { secure_url } = await sendImageToCloudinary(imageName, path);
-        payload.image = secure_url as string;
-    }
+//         //send image to cloudinary
+//         const { secure_url } = await sendImageToCloudinary(imageName, path);
+//         payload.image = secure_url as string;
+//     }
 
-    const newproject = await Project.create([payload]);
+//     const newproject = await Project.create([payload]);
 
-    // const newStudent = await Student.create([payload], { session });
+//     // const newStudent = await Student.create([payload], { session });
 
-    const result = await Project.create(newproject);
+//     const result = await Project.create(newproject);
+
+//     return result;
+// };
+
+const createProjectIntoDB = async (payload: TProject) => {
+
+    const newPayload = { ...payload };
+
+    const result = await Project.create(newPayload);
 
     return result;
 };
@@ -40,23 +49,23 @@ const getAllProjectFromDB = async () => {
 const getSingleProjectFromDB = async (id: string) => {
 
     const result = await Project.findById(id)
-    
+
     return result;
 };
 
 
 // Update Project
-const updateProjectIntoDB = async (id: string, payload: Partial<TProject>, file: any) => {
+const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
 
 
-    if (file) {
-        const imageName = `${file.filename}`;
-        const path = file?.path;
+    // if (file) {
+    //     const imageName = `${file.filename}`;
+    //     const path = file?.path;
 
-        //send image to cloudinary
-        const { secure_url } = await sendImageToCloudinary(imageName, path);
-        payload.image = secure_url as string;
-    }
+    //     //send image to cloudinary
+    //     const { secure_url } = await sendImageToCloudinary(imageName, path);
+    //     payload.image = secure_url as string;
+    // }
 
     const result = await Project.findOneAndUpdate({ _id: id }, payload,
         {
@@ -89,6 +98,4 @@ export const projectService = {
     updateProjectIntoDB,
     deleteProjectFromDB,
     getSingleProjectFromDB
-
-
 };
